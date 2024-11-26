@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Missing Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #555;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Enter Missing Sales Data</h1>
+        <form action="/submit_data" method="POST">
+            <label for="product">Product:</label>
+            <select id="product" name="product" required>
+                <option value="">--Select Product--</option>
+                {% for brand in brands %}
+                    <option value="{{ brand }}" {% if brand == product %}selected{% endif %}>{{ brand }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="volume">Volume:</label>
+            <select id="volume" name="volume" required>
+                <option value="">--Select Volume--</option>
+                {% for vol in volumes %}
+                    <option value="{{ vol }}" {% if vol == volume %}selected{% endif %}>{{ vol }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="base_sales">Base Sales:</label>
+            <input type="number" id="base_sales" name="base_sales" step="0.01" required>
+
+            <input type="hidden" name="month" value="{{ month }}">
+
+            <button type="submit">Submit Data</button>
+        </form>
+    </div>
+</body>
+</html>
